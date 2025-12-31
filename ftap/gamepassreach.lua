@@ -25,7 +25,7 @@ local function ReloadScript()
     game.Players.LocalPlayer.Character.GrabbingScript.Enabled = true
 end
 
-local function Toggle(notify) -- refactored by gemini-3-pro
+local function Toggle(notify)
     Config.Working = not Config.Working
     local isEnabled = Config.Working
 
