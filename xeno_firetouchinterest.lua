@@ -8,7 +8,7 @@ local touchCache, ptp = {}, function(p1: Part, p2: Part, cf: CFrame, lv: boolean
 		p1.CFrame = p2.CFrame
 	end)
 end
-return function firetouchinterest(toucher: Part, to_touch: Part, state: number)
+return function (toucher: Part, to_touch: Part, state: number)
 	if to_touch.Parent and to_touch.Parent:FindFirstChildOfClass("Humanoid") then
 		toucher, to_touch = to_touch, toucher
 	end
