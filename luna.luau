@@ -23,7 +23,7 @@ if RunService:IsStudio() then
 	isStudio = true
 end
 
-local NebulaIcons = loadstring(HttpGet("https://raw.githubusercontent.com/ultraskidding/luau/refs/heads/main/nebulaicons.luau"))()
+local NebulaIcons = loadstring(game:HttpGet("https://raw.githubusercontent.com/ultraskidding/luau/refs/heads/main/nebulaicons.luau"))()
 
 -- Other Variables
 local request = (syn and syn.request) or (http and http.request) or http_request or nil
