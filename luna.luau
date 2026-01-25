@@ -6052,7 +6052,7 @@ function Luna:CreateWindow(WindowSettings)
 			end
 
 			local inputPath = nil
-			local selectedConfig = nil
+			local selectedConfig = ""
 
 			local Title = Elements.Template.Title:Clone()
 			Title.Text = "Configurations"
@@ -6150,6 +6150,22 @@ function Luna:CreateWindow(WindowSettings)
 						Content = string.format("Loaded config %q", selectedConfig),
 					})
 				end
+			})
+
+            Tab:CreateButton({
+				Name = "Delete Config",
+				Description = "Delete the selected config",
+				Callback = function()
+					local name = selectedConfig
+					delfile(Luna.Folder .. "/settings/".. name .. ".luna")
+
+					Luna:Notification({
+						Title = "Interface",
+						Icon = "info",
+						ImageSource = "Material",
+						Content = "Deleted ".. name .." config",
+					})
+				end,
 			})
 
 			Tab:CreateButton({
