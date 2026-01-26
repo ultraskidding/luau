@@ -1813,7 +1813,6 @@ local function BlurModule(Frame)
 end
 
 local function unpackt(array : table)
-
 	local val = ""
 	local i = 0
 	for _,v in pairs(array) do
@@ -1857,6 +1856,7 @@ local function Hide(Window, bind, notif)
 			TopbarButton.Visible = false
 		end
 	end
+
 	for _, tabbtn in ipairs(Window.Navigation.Tabs:GetChildren()) do
 		if tabbtn.ClassName == "Frame" and tabbtn.Name ~= "InActive Template" then
 			TweenService:Create(tabbtn, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
@@ -2207,26 +2207,6 @@ function Luna:CreateWindow(WindowSettings)
 
 	LoadingFrame.Visible = true
 
-	-- pcall(function()
-	-- 	if not isfolder(ConfigurationFolder) then
-	-- 		makefolder(ConfigurationFolder)
-	-- 	end
-	-- 	if WindowSettings.ConfigSettings.RootFolder then
-	-- 		if not isfolder(ConfigurationFolder .. WindowSettings.ConfigSettings.RootFolder) then
-	-- 			makefolder(ConfigurationFolder .. WindowSettings.ConfigSettings.RootFolder)
-	-- 			if not isfolder(ConfigurationFolder .. WindowSettings.ConfigSettings.RootFolder .. WindowSettings.ConfigSettings.ConfigFolder) then
-	-- 				makefolder(ConfigurationFolder .. WindowSettings.ConfigSettings.RootFolder .. WindowSettings.ConfigSettings.ConfigFolder)
-	-- 			end
-	-- 		end
-	-- 	else
-	-- 		if not isfolder(ConfigurationFolder .. WindowSettings.ConfigSettings.ConfigFolder) then
-	-- 			makefolder(ConfigurationFolder .. WindowSettings.ConfigSettings.ConfigFolder)
-	-- 		end
-	-- 	end
-
-	-- 	LoadAutoLoad(WindowSettings.ConfigSettings.ConfigFolder, WindowSettings.ConfigSettings.RootFolder)
-	-- end)
-
 	LunaUI.Enabled = true
 
 	BlurModule(Main)
@@ -2353,7 +2333,6 @@ function Luna:CreateWindow(WindowSettings)
 			end)
 
 			KeySystem.Close.MouseButton1Click:Connect(function()
-				
 				Luna:Destroy()
 			end)
 		end
@@ -2407,7 +2386,6 @@ function Luna:CreateWindow(WindowSettings)
 	local FirstTab = true
 
 	function Window:CreateHomeTab(HomeTabSettings)
-
 		HomeTabSettings = Kwargify({
 			Icon = 1,
 			SupportedExecutors = {"Vega X", "Delta", "Nihon", "Xeno"}, -- THESE DEFAULTS ARE PLACEHOLDERS!! I DO NOT ADVERTISE THESE, THEY ARE JUS THE FIRST THAT CAME TO MIND. I HAVE NO IDEA WHETHER THEYA RE RATS (they prob are) AND IM NOT RESPONSIBLE IF U GET VIRUSES FROM INSTALLING AFTER SEEING THIS LIST
@@ -2455,7 +2433,7 @@ function Luna:CreateWindow(WindowSettings)
 
 		HomeTabPage.icon.ImageLabel.Image = Players:GetUserThumbnailAsync(Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 		HomeTabPage.player.Text.Text = "Hello, " .. Players.LocalPlayer.DisplayName
-		HomeTabPage.player.user.Text = Players.LocalPlayer.Name .. " - ".. WindowSettings.Name
+		HomeTabPage.player.user.Text = Players.LocalPlayer.Name .. " - Using ".. WindowSettings.Name
 
 		HomeTabPage.detailsholder.dashboard.Client.Title.Text = (isStudio and "Debugging (Studio)" or identifyexecutor()) or "Your Executor Does Not Support identifyexecutor."
 		for i,v in pairs(HomeTabSettings.SupportedExecutors) do
@@ -6158,6 +6136,8 @@ function Luna:CreateWindow(WindowSettings)
 				Callback = function()
 					local name = selectedConfig
 					delfile(Luna.Folder .. "/settings/".. name .. ".luna")
+					configSelection:Set({ Text = "None" })
+					configSelection:Set({ Options = Luna:RefreshConfigList() })
 
 					Luna:Notification({
 						Title = "Interface",
