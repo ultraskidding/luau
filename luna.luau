@@ -1512,6 +1512,14 @@ local IconModule = {
 	}
 }
 
+local NebulaIcons = loadstring(game:HttpGet("https://raw.githubusercontent.com/ultraskidding/luau/refs/heads/main/nebulaicons.luau"))()
+table.clear(IconModule)
+for Pack, Data in NebulaIcons do
+    if typeof(Data) == "function" then continue end
+    IconModule[Pack] = Data
+end
+
+
 -- Other Variables
 local request = (syn and syn.request) or (http and http.request) or http_request or nil
 local tweeninfo = TweenInfo.new(0.3, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
