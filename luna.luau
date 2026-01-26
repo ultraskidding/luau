@@ -1514,11 +1514,16 @@ local IconModule = {
 
 local NebulaIcons = loadstring(game:HttpGet("https://raw.githubusercontent.com/ultraskidding/luau/refs/heads/main/nebulaicons.luau"))()
 table.clear(IconModule)
-for Pack, Data in NebulaIcons do
-    if typeof(Data) == "function" then continue end
-    IconModule[Pack] = Data
-end
-
+pcall(function()
+    for Pack, Data in pairs(NebulaIcons) do
+        IconModule[Pack] = {}
+        if type(Data) == "table" then
+            for Icon, Id in pairs(Data) do
+                IconModule[Pack][Icon] = Id
+            end
+        end
+    end
+end)
 
 -- Other Variables
 local request = (syn and syn.request) or (http and http.request) or http_request or nil
