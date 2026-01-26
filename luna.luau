@@ -3649,6 +3649,24 @@ function Luna:CreateWindow(WindowSettings)
 					Input.InputFrame.Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 52, 0, 42)
 
 					InputV.CurrentValue = InputSettings.CurrentValue
+
+					-- added by claude sonnet 4.5 
+					-- Add this callback invocation
+					local Success, Response = pcall(function()
+						InputSettings.Callback(InputSettings.CurrentValue)
+					end)
+					if not Success then
+						TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
+						TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
+						TweenService:Create(Input.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
+						Input.Title.Text = "Callback Error"
+						print("Luna Interface Suite | "..InputSettings.Name.." Callback Error " ..tostring(Response))
+						wait(0.5)
+						Input.Title.Text = InputSettings.Name
+						TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.5}):Play()
+						TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(32, 30, 38)}):Play()
+						TweenService:Create(Input.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
+					end
 				end
 
 				function InputV:Destroy()
