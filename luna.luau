@@ -2910,6 +2910,7 @@ function Luna:CreateWindow(WindowSettings)
 
 				SliderSettings = Kwargify({
 					Name = "Slider",
+					Description = nil,
 					Range = {0, 200},
 					Increment = 1,
 					CurrentValue = 100,
@@ -2918,20 +2919,40 @@ function Luna:CreateWindow(WindowSettings)
 					end,
 				}, SliderSettings or {})
 
+				local descriptionbool = false
+				if SliderSettings.Description ~= nil and SliderSettings.Description ~= "" then
+					descriptionbool = true
+				end
+
 				local SLDragging = false
-				local Slider = Elements.Template.Slider:Clone()
+				local Slider
+				if descriptionbool then
+					Slider = Elements.Template.SliderDesc:Clone()
+				else
+					Slider = Elements.Template.Slider:Clone()
+				end
+				
 				Slider.Name = SliderSettings.Name .. " - Slider"
 				Slider.Title.Text = SliderSettings.Name
+				if descriptionbool then 
+					Slider.Desc.Text = SliderSettings.Description 
+				end
 				Slider.Visible = true
 				Slider.Parent = TabPage
 
 				Slider.BackgroundTransparency = 1
 				Slider.UIStroke.Transparency = 1
 				Slider.Title.TextTransparency = 1
+				if descriptionbool then
+					Slider.Desc.TextTransparency = 1
+				end
 
 				TweenService:Create(Slider, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.5}):Play()
 				TweenService:Create(Slider.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
 				TweenService:Create(Slider.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
+				if descriptionbool then
+					TweenService:Create(Slider.Desc, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
+				end
 
 				Slider.Main.Progress.Size =	UDim2.new(0, Slider.Main.AbsoluteSize.X * ((SliderSettings.CurrentValue + SliderSettings.Range[1]) / (SliderSettings.Range[2] - SliderSettings.Range[1])) > 5 and Slider.Main.AbsoluteSize.X * (SliderSettings.CurrentValue / (SliderSettings.Range[2] - SliderSettings.Range[1])) or 5, 1, 0)
 
@@ -3066,6 +3087,7 @@ function Luna:CreateWindow(WindowSettings)
 				function SliderV:Set(NewSliderSettings)
 					NewSliderSettings = Kwargify({
 						Name = SliderSettings.Name,
+						Description = SliderSettings.Description,
 						Range = SliderSettings.Range,
 						Increment = SliderSettings.Increment,
 						CurrentValue = SliderSettings.CurrentValue,
@@ -3077,10 +3099,11 @@ function Luna:CreateWindow(WindowSettings)
 
 					Slider.Name = SliderSettings.Name .. " - Slider"
 					Slider.Title.Text = SliderSettings.Name
+					if SliderSettings.Description ~= nil and SliderSettings.Description ~= "" and Slider.Desc ~= nil then
+						Slider.Desc.Text = SliderSettings.Description
+					end
 
 					Set()
-
-					-- Luna.Flags[SliderSettings.Flag] = SliderSettings
 				end
 
 				function SliderV:Destroy()
