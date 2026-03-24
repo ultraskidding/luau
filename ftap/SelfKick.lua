@@ -1,8 +1,12 @@
 local Camera = workspace.CurrentCamera
 local LocalPlayer = game:GetService("Players").LocalPlayer
+local RobloxGui = game:GetService("CoreGui").RobloxGui
+local GameCorrectionsGui = LocalPlayer.PlayerGui.GameCorrectionsGui
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local HRP = Character:WaitForChild("HumanoidRootPart", 2)
 Character.Archivable = true
+RobloxGui.Enabled = false
+GameCorrectionsGui.Enabled = false
 
 local BV = Instance.new("BodyVelocity")
 BV.Velocity = Vector3.new(0, 15, 0)
