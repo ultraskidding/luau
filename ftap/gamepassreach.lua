@@ -7,6 +7,7 @@ local Notify = AkaliNotif.Notify;
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local LocalPlayer = Players.LocalPlayer
 
 local Config = {
@@ -46,7 +47,7 @@ local function Toggle(notify)
         LineTexture.Value = true
         LineTexture.Parent = LocalPlayer
 
-        ScriptNotify.Parent = workspace
+        ScriptNotify.Parent = ReplicatedFirst
         Activator.Parent = ReplicatedStorage.GamepassEvents
         Activator.Name = "FurtherReachBoughtNotifier"
 
