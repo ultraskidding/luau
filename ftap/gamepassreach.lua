@@ -1,6 +1,5 @@
 -- made by locality 
 -- found this method - 19.12.2025 (dd mm yyyy)
--- supported exploits: xeno
 
 local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/ultraskidding/luau/refs/heads/main/AkaliNotif.lua"))();
 local Notify = AkaliNotif.Notify;
@@ -47,7 +46,10 @@ local function Toggle(notify)
         LineTexture.Value = true
         LineTexture.Parent = LocalPlayer
 
-        hookinstance(ScriptNotify, Activator)
+        ScriptNotify.Parent = workspace
+        Activator.Parent = ReplicatedStorage.GamepassEvents
+        Activator.Name = "FurtherReachBoughtNotifier"
+
         ReloadScript()
         task.delay(0.1, function()
             Activator:FireServer()
@@ -62,7 +64,11 @@ local function Toggle(notify)
         if LineTexture then
             LineTexture:Destroy()
         end
-        hookinstance(ScriptNotify, ScriptNotify)
+
+        ScriptNotify.Parent = ReplicatedStorage.GamepassEvents
+        Activator.Name = "LimitedTimeToyEvent"
+        Activator.Parent = ReplicatedStorage.MenuToys
+
         ReloadScript()
         DiedHandle:Disconnect()
         DiedHandle = nil
