@@ -1,6 +1,5 @@
 -- made by locality 
 -- found this method - 19.12.2025 (dd mm yyyy)
--- supported exploits: xeno
 
 local AkaliNotif = loadstring(game:HttpGet("https://raw.githubusercontent.com/ultraskidding/luau/refs/heads/main/AkaliNotif.lua"))();
 local Notify = AkaliNotif.Notify;
@@ -22,7 +21,10 @@ Notify({
     Duration = 5
 })
 
-hookinstance(ScriptNotify, Activator)
+ScriptNotify.Parent = workspace
+Activator.Parent = ReplicatedStorage.GamepassEvents
+Activator.Name = "MulticolorLineBoughtNotifier"
+
 ReloadScript()
 task.delay(0.1, function()
     Activator:FireServer()
