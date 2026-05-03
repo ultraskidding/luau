@@ -6,6 +6,7 @@ local Notify = AkaliNotif.Notify;
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local LocalPlayer = Players.LocalPlayer
 
 local ScriptNotify = ReplicatedStorage.GamepassEvents.MulticolorLineBoughtNotifier
@@ -21,7 +22,7 @@ Notify({
     Duration = 5
 })
 
-ScriptNotify.Parent = workspace
+ScriptNotify.Parent = ReplicatedFirst
 Activator.Parent = ReplicatedStorage.GamepassEvents
 Activator.Name = "MulticolorLineBoughtNotifier"
 
